@@ -34,7 +34,7 @@ MAX_RETRIES = 3
 def process_order(order):
     """Simulate processing that can randomly fail (temporary error)."""
     import random
-    if random.random() < 1.0:  # 20% chance of a transient failure
+    if random.random() < 1.0:
         raise ConnectionError("Simulated transient downstream failure")
     return True
 
@@ -59,7 +59,7 @@ try:
                 success = True
             except ConnectionError as e:
                 attempt += 1
-                wait = 2 ** attempt  # exponential backoff
+                wait = 2 ** attempt 
                 print(f"Retry {attempt}/{MAX_RETRIES} for order {order['orderId']} after error: {e}. Waiting {wait}s")
                 time.sleep(wait)
 
